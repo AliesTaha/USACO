@@ -3,8 +3,7 @@ class Solution:
         adjacency_list=[[] for _ in range(n+1)]
         for u, v, w in times:
             adjacency_list[u].append((v,w))
-        print(adjacency_list)
-
+                  
         INF = float('inf')
         dist = [INF for _ in range(n+1)]
         dist[k]=0
