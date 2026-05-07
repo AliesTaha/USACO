@@ -22,8 +22,7 @@ class Solution:
                 if new_dist < dist[v]:
                     dist[v]=new_dist
                 final_d=dist[v]
-                if v not in visited:
-                    heapq.heappush(min_heap, (final_d, v))
+                heapq.heappush(min_heap, (final_d, v))
         
         if INF in dist[1:]:
             return -1
