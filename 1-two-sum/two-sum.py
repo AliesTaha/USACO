@@ -1,19 +1,9 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        dic={}
-        for i,num in enumerate(nums):
-            indices=[]
-            if num in dic:
-                indices=dic[num]
-            indices.append(i)
-            dic[num]=indices
+        seen_prev={}
 
-        for num in nums:
-            other=target-num
-            if other in dic.keys():
-                if num!=other:
-                    return [dic[num][0],dic[other][0]]
-                else:
-                    if len(dic[other])>1:
-                        return [dic[num][0],dic[num][1]]
-                
+        for i, num in enumerate(nums):
+            want=target-num
+            if want in seen_prev:
+                return [seen_prev[want], i]
+            seen_prev[num]=i
