@@ -5,17 +5,25 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        dic=Counter(nums)
+        dic=Counter(nums)      
         
-        def sort_key(x):
-            return x[1]
+        arr=[[] for i in range(len(nums))]
 
-        sorted_dic=sorted(
-            dic.items(), 
-            key = sort_key,
-            reverse=True)
-        ret=[]
-        for i in range(k):
-            k,v=sorted_dic[i]
-            ret.append(k)
-        return ret
+        for key,v in dic.items():
+            count=v-1
+            arr[count].append(key)
+        arr=arr[::-1]
+        
+        lis=[]
+        count=0
+        print(arr)
+
+        for group in arr:
+            if count==k:
+                break
+            for num in group:
+                lis.append(num)
+                count+=1
+                if count==k:
+                    break
+        return lis
