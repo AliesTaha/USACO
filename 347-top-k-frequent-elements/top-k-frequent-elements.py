@@ -16,7 +16,6 @@ class Solution(object):
         
         lis=[]
         count=0
-        print(arr)
 
         for group in arr:
             if count==k:
