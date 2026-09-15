@@ -6,9 +6,13 @@ class Solution(object):
         :rtype: List[int]
         """
         dic=Counter(nums)
+        
+        def sort_key(x):
+            return x[1]
+
         sorted_dic=sorted(
             dic.items(), 
-            key = lambda x: x[1], 
+            key = sort_key,
             reverse=True)
         ret=[]
         for i in range(k):
