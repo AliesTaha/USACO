@@ -9,7 +9,6 @@ class Solution(object):
                 return [nums]
         
         nums=sorted(nums)
-        curr_sum=0
         ret=set()
 
         for a in range(len(nums)):
@@ -30,10 +29,7 @@ class Solution(object):
                         continue
 
                 if b+1==c: 
-                    if a+1==b:
-                        return list(ret) #game over
-                    else:
-                        break #reset piano
+                    break #reset piano
                         
                 if the_sum>0:
                     c-=1
@@ -43,3 +39,4 @@ class Solution(object):
                     b+=1
                     continue
         
+        return list(ret) #game over
