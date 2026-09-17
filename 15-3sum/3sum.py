@@ -22,8 +22,6 @@ class Solution(object):
 
                 if the_sum==0:
                     ret.add((num1, num2, num3))
-                    #special case need to do something if = 0
-                    #can move anything, choose to move the right
                     if b+1!=c: #reset piano
                         c-=1
                         continue
@@ -33,10 +31,7 @@ class Solution(object):
                         
                 if the_sum>0:
                     c-=1
-                    continue
-            
-                if the_sum<0:
+                elif the_sum<0:
                     b+=1
-                    continue
         
         return list(ret) #game over
