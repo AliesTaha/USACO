@@ -11,7 +11,9 @@ class Solution(object):
         nums=sorted(nums)
         ret=set()
 
-        for a in range(len(nums)):
+        for a, num in enumerate(nums):
+            if a>0 and nums[a]==nums[a-1]:
+                continue
             b=a+1
             c=len(nums)-1
             while b<c:
@@ -27,7 +29,7 @@ class Solution(object):
                         continue
 
                 if b+1==c: 
-                    break #reset piano
+                    break
                         
                 if the_sum>0:
                     c-=1
