@@ -4,9 +4,7 @@ class Solution {
 public:
     vector<int> getConcatenation(vector<int>& nums) {
         vector<int> ret=nums;
-        for (int num:nums){
-            ret.pb(num);
-        }        
+        ret.insert(ret.end(), nums.begin(), nums.end());
         return ret;
     }
 };
