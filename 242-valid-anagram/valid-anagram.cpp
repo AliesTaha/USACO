@@ -4,14 +4,19 @@ public:
         // sort(s.begin(), s.end());
         // sort(t.begin(), t.end());
         // return s==t;
-        unordered_map<char, int> dic1;
-        unordered_map<char, int> dic2;
-        for (auto c: s){
-            dic1[c]++;
+        if (s.length()!=t.length()){
+            return false;
         }
-        for (auto c: t){
-            dic2[c]++;
+        unordered_map<char, int> counter;
+        for (int i=0; i<s.length(); i++){
+            counter[s[i]]++;
+            counter[t[i]]--;
         }
-        return dic1==dic2;
+        for (auto& [key, val]: counter){
+            if (val!=0){
+                return false;
+            }
+        }
+        return true;
     }
 };
