@@ -10,7 +10,7 @@ public:
             if (dic.count(need)){
                 pair.pb(dic[need]);
                 pair.pb(i);
-                return pair;
+                return {dic[need], i};
             }
             dic[num]=i;
         }
