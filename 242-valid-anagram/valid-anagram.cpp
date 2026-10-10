@@ -7,20 +7,10 @@ public:
         unordered_map<char, int> dic1;
         unordered_map<char, int> dic2;
         for (auto c: s){
-            if (dic1.find(c)!=dic1.end()){
-                dic1[c]+=1;
-            }
-            else{
-                dic1[c]=1;
-            }
+            dic1[c]++;
         }
         for (auto c: t){
-            if (dic2.find(c)!=dic2.end()){
-                dic2[c]+=1;
-            }
-            else{
-                dic2[c]=1;
-            }
+            dic2[c]++;
         }
         return dic1==dic2;
     }
