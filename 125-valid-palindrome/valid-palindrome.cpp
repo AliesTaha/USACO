@@ -2,6 +2,7 @@ class Solution {
 public:
     bool isPalindrome(string s) {
         string stripped;
+        stripped.reserve(s.size());
         for (auto c: s){
             if (isalnum(c)){
                 stripped+=tolower(c);
