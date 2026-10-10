@@ -1,13 +1,13 @@
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
-        set<int> seen;
-        for (int num: nums){
-            if (seen.find(num) != seen.end()){
+        unordered_map<int, int> dic;
+        for (auto num:nums){
+            if (dic.count(num)){
                 return true;
             }
-            seen.insert(num);
+            dic[num]=1;
         }
-        return false; 
+        return false;
     }
 };
