@@ -34,25 +34,23 @@ public:
         if ((h1->val)>(h2->val)){
             swap(h1,h2);
         }
-        // if (not (h1->next)){
-        //     h1->next=h2;
-        //     return h1;
-        // }
         ListNode* og=h1;
         ListNode* nh;
         while (true){
-            if ((h1->next) && (h1->next->val)>(h2->val)){
-                nh=h1->next;
-                h1->next=h2;
-                h2=nh;
-                h1=h1->next;
-            }
-            else{
-                if (not (h1->next)){
+            if (not (h1->next)){
                     h1->next=h2;
                     break;
+            }
+            else{
+                if ((h1->next->val)>(h2->val)){
+                    nh=h1->next;
+                    h1->next=h2;
+                    h2=nh;
+                    h1=h1->next;
                 }
-                h1=h1->next;
+                else{
+                    h1=h1->next;
+                }
             }
         }
         return og;
