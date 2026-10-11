@@ -38,8 +38,8 @@ public:
         ListNode* nh;
         while (true){
             if (not (h1->next)){
-                    h1->next=h2;
-                    break;
+                h1->next=h2;
+                break;
             }
             else{
                 if ((h1->next->val)>(h2->val)){
