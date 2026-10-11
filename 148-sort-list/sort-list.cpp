@@ -60,18 +60,13 @@ public:
 
     ListNode* sortList(ListNode* head) {
         ListNode* h1=head;
-        if (not h1){
-            return h1;
-        }
-        if (not h1->next){
+        if (not h1 or not h1->next){
             return h1;
         }
         ListNode* h2=get_middle(h1);
-        if (h2){
-            h1=sortList(h1);
-            h2=sortList(h2);
-            return merge(h1, h2);
-        }
+        h1=sortList(h1);
+        h2=sortList(h2);
+        return merge(h1, h2);
         return head;
     }
 };
