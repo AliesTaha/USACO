@@ -3,13 +3,13 @@ class Solution {
 public:
 
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        map<map<char, int>, vector<string>> dic;
+        map<array<int, 26>, vector<string>> dic;
         for (auto& st:strs){
-            map<char, int> s;
+            array<int, 26> arr{};
             for (auto c:st){
-                s[c]+=1;
+                arr[c-'a']++;
             }
-            dic[s].pb(st);
+            dic[arr].pb(st);
         }
         
         vector<vector<string>> ret;
