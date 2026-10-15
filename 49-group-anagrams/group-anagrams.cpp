@@ -1,17 +1,14 @@
 #define pb push_back
 class Solution {
 public:
-    map<char, int> setfy(string str){
-        map<char, int> s;
-        for (auto c:str){
-            s[c]+=1;
-        }
-        return s;
-    }
+
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         map<map<char, int>, vector<string>> dic;
         for (auto st:strs){
-            map<char,int> s=setfy(st);
+            map<char, int> s;
+            for (auto c:st){
+                s[c]+=1;
+            }
             dic[s].pb(st);
         }
         
