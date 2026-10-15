@@ -14,11 +14,7 @@ public:
         
         vector<vector<string>> ret;
         for (auto [k,v]: dic){
-            vector<string> ret_;
-            for (auto s: v){
-                ret_.pb(s);
-            }
-            ret.pb(ret_);
+            ret.pb(v);
         }
         return ret;
     }
