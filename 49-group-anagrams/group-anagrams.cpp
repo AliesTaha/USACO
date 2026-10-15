@@ -1,17 +1,17 @@
 #define pb push_back
 class Solution {
 public:
-    multiset<char> setfy(string str){
-        multiset<char> s;
+    map<char, int> setfy(string str){
+        map<char, int> s;
         for (auto c:str){
-            s.insert(c);
+            s[c]+=1;
         }
         return s;
     }
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        map<multiset<char>, vector<string>> dic;
+        map<map<char, int>, vector<string>> dic;
         for (auto st:strs){
-            multiset s=setfy(st);
+            map<char,int> s=setfy(st);
             dic[s].pb(st);
         }
         
