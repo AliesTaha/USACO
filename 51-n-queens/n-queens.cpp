@@ -42,11 +42,11 @@ public:
         vector<vector<string>> sol;
         for (int i=0; i<ret.size();i++){
             vector<string> soln;
+            string tb(n, '.');
             for (auto y: ret[i]){
-                string prfx(y, '.');
-                string sfx(n-y-1, '.');
-                string fin=prfx+"Q"+sfx;
-                soln.pb(fin); 
+                tb[y]='Q';
+                soln.pb(tb);
+                tb[y]='.'; 
             }
             sol.pb(soln);
         }
