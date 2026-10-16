@@ -39,16 +39,13 @@ public:
         //     cout<<endl;
         // }
 
-        vector<vector<string>> sol;
+        string tb(n, '.');
+        vector<vector<string>> sol(ret.size(), vector<string>(n, tb));
         for (int i=0; i<ret.size();i++){
-            vector<string> soln;
-            string tb(n, '.');
-            for (auto y: ret[i]){
-                tb[y]='Q';
-                soln.pb(tb);
-                tb[y]='.'; 
+            for (int k=0; k<ret[i].size();k++){
+                int y=ret[i][k];
+                sol[i][k][y]='Q';
             }
-            sol.pb(soln);
         }
         return sol;
 
