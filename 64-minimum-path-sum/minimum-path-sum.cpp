@@ -5,22 +5,15 @@ class Solution {
     public:
         int dp(int x, int y, int m, int n, vector<vector<int>>& grid, vector<vector<int>>& gv, int curr_sum){
             //given x and y, i can either move to the right or down unless i'm at edge
-            if (gv[x][y]!=-1){
-                return gv[x][y];
-            }
+            if (gv[x][y]!=-1) return gv[x][y];
             if (x==m-1 && y==n-1){
                 gv[x][y]=grid[x][y];
                 return gv[x][y];
             }
             int bottom_path, right_path;
-            bottom_path=right_path='INF';
-            if (x!=m-1){
-                bottom_path=dp(x+1,y,m,n,grid,gv,curr_sum);
-            }
-            if (y!=n-1)
-            {
-                right_path=dp(x,y+1,m,n,grid,gv,curr_sum);
-            }
+            bottom_path=right_path=INT_MAX;
+            if (x!=m-1) bottom_path=dp(x+1,y,m,n,grid,gv,curr_sum);
+            if (y!=n-1) right_path=dp(x,y+1,m,n,grid,gv,curr_sum);
             gv[x][y]=grid[x][y]+min(bottom_path, right_path);
             return gv[x][y];
         }
