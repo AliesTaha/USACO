@@ -22,7 +22,6 @@ class Solution {
                 right_path=dp(x,y+1,m,n,grid,gv,curr_sum);
             }
             gv[x][y]=grid[x][y]+min(bottom_path, right_path);
-            cout<<"x: "<<x<<" y: "<<y<< " bottom_path: " <<bottom_path<<" right_path: "<<right_path<<" gv[x][y]: "<<gv[x][y]<<endl;
             return gv[x][y];
         }
         int minPathSum(vector<vector<int>>& grid) {
