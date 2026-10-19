@@ -8,25 +8,10 @@ class Solution {
             if (gv[x][y]!=-1){
                 return gv[x][y];
             }
-            if (x==m-1){
-                int tmps=0;
-                // must keep going right
-                for (int i=n-1; i>=y; i--){
-                    tmps+=grid[x][i];
-                    gv[x][i]=tmps;
-                }
+            if (x==m-1 && y==n-1){
+                gv[x][y]=grid[x][y];
                 return gv[x][y];
             }
-            // if (y==n-1){
-            //     // must keep going down
-            //     int tmps=0;
-            //     // must keep going right
-            //     for (int i=m-1; i>=x; i--){
-            //         tmps+=grid[i][y];
-            //         gv[i][y]=tmps;
-            //     }
-            //     return gv[x][y];
-            // }
             int bottom_path, right_path;
             bottom_path=right_path='INF';
             if (x!=m-1){
