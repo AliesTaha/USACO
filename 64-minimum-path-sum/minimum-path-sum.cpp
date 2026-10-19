@@ -17,18 +17,25 @@ class Solution {
                 }
                 return gv[x][y];
             }
-            if (y==n-1){
-                // must keep going down
-                int tmps=0;
-                // must keep going right
-                for (int i=m-1; i>=x; i--){
-                    tmps+=grid[i][y];
-                    gv[i][y]=tmps;
-                }
-                return gv[x][y];
+            // if (y==n-1){
+            //     // must keep going down
+            //     int tmps=0;
+            //     // must keep going right
+            //     for (int i=m-1; i>=x; i--){
+            //         tmps+=grid[i][y];
+            //         gv[i][y]=tmps;
+            //     }
+            //     return gv[x][y];
+            // }
+            int bottom_path, right_path;
+            bottom_path=right_path='INF';
+            if (x!=m-1){
+                bottom_path=dp(x+1,y,m,n,grid,gv,curr_sum);
             }
-            int bottom_path=dp(x+1,y,m,n,grid,gv,curr_sum);
-            int right_path=dp(x,y+1,m,n,grid,gv,curr_sum);
+            if (y!=n-1)
+            {
+                right_path=dp(x,y+1,m,n,grid,gv,curr_sum);
+            }
             gv[x][y]=grid[x][y]+min(bottom_path, right_path);
             cout<<"x: "<<x<<" y: "<<y<< " bottom_path: " <<bottom_path<<" right_path: "<<right_path<<" gv[x][y]: "<<gv[x][y]<<endl;
             return gv[x][y];
