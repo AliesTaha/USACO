@@ -1,24 +1,18 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        if (nums.size()==1){
-            if (nums[0]==target){
-                return 0;
+        int mp,l,r;
+        l=0; r=nums.size()-1;
+        while (l<=r){
+            mp=(l+r)/2;
+            if (nums[mp]==target){
+                return mp;
             }
-        }
-        int n=nums.size()-1;
-        int curr=0;
-        for (int i=n; i>0; i=i>>1){
-            cout<<nums[curr]<<endl;
-            if (nums[curr]==target){
-                return curr;
+            else if (nums[mp]>target){
+                r=mp-1;
             }
-            while ((curr+i)<=n && nums[curr+i]<=target){
-                curr+=i;
-                cout<<nums[curr]<<endl;
-                if (nums[curr]==target){
-                    return curr;
-                }
+            else{
+                l=mp+1;
             }
         }
         return -1;
