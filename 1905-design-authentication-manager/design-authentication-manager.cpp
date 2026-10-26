@@ -7,22 +7,14 @@ public:
         int end;
     };
     unordered_map<string, Token> dic;
-    vector<Token*> heap;
     int ttl;
     AuthenticationManager(int timeToLive) {
         ttl=timeToLive;
     }
     
-    static bool compara(const Token* a, const Token* b){
-        return (a->end>b->end);
-    }
-
     void generate(string tokenId, int currentTime) {
         Token t{tokenId, currentTime, currentTime+ttl};
         dic[tokenId]=t;
-        Token* tok= &dic[tokenId];
-        heap.pb(tok);
-        push_heap(heap.begin(), heap.end(), compara);
     }
     
     void renew(string tokenId, int currentTime) {
@@ -32,22 +24,21 @@ public:
         Token* t=&dic[tokenId];
         t->begin=currentTime;
         t->end=t->begin+ttl;
-        make_heap(heap.begin(), heap.end(), compara);
     }
     
     int countUnexpiredTokens(int currentTime) {
-        while (heap.size()>0){
-            Token* t=heap[0];
-            if ((t->end)<=currentTime){
-                dic.erase(t->id);
-                pop_heap(heap.begin(), heap.end(), compara);
-                heap.pop_back();
+        auto it=dic.begin();
+        while (it!=dic.end()){
+            string key=it->first;
+            Token t=it->second;
+            if (t.end<=currentTime){
+                it=dic.erase(it);
             }
             else{
-                break;
+                it++;
             }
         }
-        return heap.size();
+        return int(dic.size());
     }
 };
 
