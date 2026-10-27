@@ -41,7 +41,7 @@ public:
                 Node t=heap[0];
                 if (t.back<=stoi(time)){
                     //back online
-                    dic[t.id]=(t);
+                    dic[t.id]=(t); //2n ... 
                     pop_heap(heap.begin(), heap.end(), comp);
                     heap.popb();
                 }
