@@ -5,22 +5,17 @@ public:
         int t1= stoi(a[1]);
         int t2= stoi(b[1]);
         bool ret=false;
-        if (t1<t2){
-            ret=true;
+        if (t1!=t2){
+            return t1<t2;
         }
-        if (t1==t2){
-            if (a[0]=="OFFLINE"){
-                return true;
-            }
-        }
-        return ret;
+        return a[0]=="OFFLINE" && b[0]=="MESSAGE";
     }
     vector<int> countMentions(int numberOfUsers, vector<vector<string>>& events) {
         vector<int> online_time(numberOfUsers, 0);
         vector<int> user_mentions(numberOfUsers, 0);
 
         sort(events.begin(), events.end(), comp);
-        
+
         for (vector<string> event:events){
             string kind=event[0];
             int timestamp=stoi(event[1]);
