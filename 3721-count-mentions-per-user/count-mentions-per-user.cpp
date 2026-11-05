@@ -20,10 +20,7 @@ public:
         vector<int> user_mentions(numberOfUsers, 0);
 
         sort(events.begin(), events.end(), comp);
-
-        for (auto event : events){
-            cout<<event[0]<<","<<event[1]<<" ";
-        }
+        
         for (vector<string> event:events){
             string kind=event[0];
             int timestamp=stoi(event[1]);
