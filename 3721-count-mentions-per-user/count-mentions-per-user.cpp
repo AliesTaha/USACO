@@ -1,137 +1,64 @@
 #define pb push_back
-#define popb pop_back
 class Solution {
 public:
-    vector<int> ret;
-    struct Node{
-        int id;
-        int mentions;
-        int back;
-    };
-
-    static bool comp(const Node& a, const Node& b){
-        return a.back>b.back;
-    }
-
-    static bool vcomp(const vector<string>& a, const vector<string>& b){
-        int ta=stoi(a[1]);
-        int tb=stoi(b[1]);
-        if (ta!=tb){
-            return ta<tb;
+    static bool comp(vector<string>& a, vector<string>& b){
+        int t1= stoi(a[1]);
+        int t2= stoi(b[1]);
+        bool ret=false;
+        if (t1<t2){
+            ret=true;
         }
-        else{
-            return a[0]>b[0]; //offline first
+        if (t1==t2){
+            if (a[0]=="OFFLINE"){
+                return true;
+            }
         }
+        return ret;
     }
     vector<int> countMentions(int numberOfUsers, vector<vector<string>>& events) {
-        sort(events.begin(), events.end(), vcomp);
-        ret.resize(numberOfUsers, 0);
-        unordered_map<int, Node> dic;
-        for (int i=0; i<numberOfUsers; i++){
-            Node n{i, 0, 0};
-            dic[i]=n;
-        }
-        vector<Node> heap;
+        vector<int> online_time(numberOfUsers, 0);
+        vector<int> user_mentions(numberOfUsers, 0);
 
-        for (vector<string> v_string: events){
-            string type, time, id;
-            type=v_string[0]; time=v_string[1]; id=v_string[2];
-            //step 1 : find and return all online users to list
-            while(heap.size()>0){
-                Node t=heap[0];
-                if (t.back<=stoi(time)){
-                    //back online
-                    dic[t.id]=(t); //2n ... 
-                    pop_heap(heap.begin(), heap.end(), comp);
-                    heap.popb();
+        sort(events.begin(), events.end(), comp);
+
+        for (auto event : events){
+            cout<<event[0]<<","<<event[1]<<" ";
+        }
+        for (vector<string> event:events){
+            string kind=event[0];
+            int timestamp=stoi(event[1]);
+            if (kind=="MESSAGE"){
+                //message event
+                if (event[2]=="ALL"){
+                    for (int id=0; id<numberOfUsers;++id){
+                        user_mentions[id]+=1;
+                    }
+                }
+                else if (event[2]=="HERE"){
+                    for (int id=0; id<numberOfUsers;++id){
+                        if (timestamp>=online_time[id]){
+                            user_mentions[id]+=1;
+                        }
+                    }
                 }
                 else{
-                    break;
-                }
-            }
-            if (type=="MESSAGE"){
-                //step 2 : traverse each case
-                if (id=="ALL"){
-                    //traverse heap and ++ 
-                    for (int i=0; i<heap.size(); i++){
-                        Node* t=&heap[i];
-                        t->mentions++;
-                    }
-                    //traverse set and ++
-                    unordered_map<int, Node> new_dic;
-                    for (auto it=dic.begin(); it!=dic.end(); it++){
-                        int id=it->first;
-                        Node t=it->second;
-                        t.mentions++;
-                        new_dic[id]=t;
-                    }
-                    dic=new_dic;
-                }
-                else if (id=="HERE"){
-                    //traverse set and ++
-                    unordered_map<int, Node> new_dic;
-                    for (auto it=dic.begin(); it!=dic.end(); it++){
-                        int id=it->first;
-                        Node t=it->second;
-                        t.mentions++;
-                        new_dic[id]=t;
-                    }
-                    dic=new_dic;
-                }
-                else{
-                    //split terms
-                    stringstream ss(id);
+                    stringstream ss(event[2]);
                     string id;
-                    vector<string> ids;
+                    vector<int> ids;
                     while (getline(ss, id, ' ')){
-                        id=id.substr(2);
-                        ids.pb(id);
+                        ids.pb(stoi(id.substr(2, id.size())));
                     }
-                    //add only those terms if in set
-                    for (auto str: ids){
-                        int uid=stoi(str);
-                        auto it=dic.find(uid);
-                        if (it!=dic.end()){
-                            it->second.mentions++;
-                        }
-                        else{
-                            for (Node& node: heap){
-                                if (node.id==uid){
-                                    ++node.mentions;
-                                    break;
-                                }
-                            }
-                        }
+                    for (int id: ids){
+                        user_mentions[id]+=1;
                     }
                 }
             }
             else{
-                //going offline
-                int back = stoi(time)+60;
-                int uid=stoi(id);
-                int mentions=dic[uid].mentions;
-                Node n{uid, mentions, back};
-                dic.erase(uid);
-                heap.pb(n);
-                push_heap(heap.begin(), heap.end(), comp);
+                //offline event
+                int id=stoi(event[2]);
+                online_time[id]=timestamp+60;
             }
         }
-
-        //traverse heap and add to ret
-        for (int i=0; i<heap.size(); i++){
-            Node* t=&heap[i];
-            int id=t->id;
-            int count=t->mentions;
-            ret[id]=count;
-        }
-        //traverse set and ++
-        for (auto it=dic.begin(); it!=dic.end(); it++){
-            Node t= it->second;
-            int id=t.id;
-            int count=t.mentions;
-            ret[id]=count;
-        }
-
-        return ret;
+        return user_mentions;
     }
 };
