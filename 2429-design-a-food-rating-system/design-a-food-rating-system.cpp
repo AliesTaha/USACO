@@ -29,9 +29,9 @@ public:
         int idx=food2idx[food];
         // int old_rating=ratings[idx];
         // pair<int,string> tup={old_rating,food};
-        pair<int,string> ntup={newRating, food};
-
         // cuisine_order[cuisines[idx]].erase(tup);
+
+        pair<int,string> ntup={newRating, food};
         cuisine_order[cuisines[idx]].insert(ntup);
         ratings[idx]=newRating;
 
@@ -41,6 +41,7 @@ public:
         string food=cuisine_order[cuisine].begin()->second;
         int idx=food2idx[food];
         int live_rating=ratings[idx];
+        // implement lazy deletion
         while (live_rating!=rating){
             cuisine_order[cuisine].erase(cuisine_order[cuisine].begin());
             rating=cuisine_order[cuisine].begin()-> first;
