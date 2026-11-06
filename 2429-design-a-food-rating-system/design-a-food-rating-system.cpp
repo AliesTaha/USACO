@@ -5,7 +5,6 @@ public:
             if (a.first!=b.first){
                 return a.first>b.first;
             }
-
             return a.second<b.second;
         }
     };
@@ -28,17 +27,27 @@ public:
     }
     void changeRating(string food, int newRating) {
         int idx=food2idx[food];
-        int old_rating=ratings[idx];
-        pair<int, string> tup={old_rating,food};
-        pair<int, string> ntup={newRating, food};
+        // int old_rating=ratings[idx];
+        // pair<int,string> tup={old_rating,food};
+        pair<int,string> ntup={newRating, food};
 
-        cuisine_order[cuisines[idx]].erase(tup);
+        // cuisine_order[cuisines[idx]].erase(tup);
         cuisine_order[cuisines[idx]].insert(ntup);
         ratings[idx]=newRating;
 
     }
     string highestRated(string cuisine) {
+        int rating=cuisine_order[cuisine].begin()-> first;
         string food=cuisine_order[cuisine].begin()->second;
+        int idx=food2idx[food];
+        int live_rating=ratings[idx];
+        while (live_rating!=rating){
+            cuisine_order[cuisine].erase(cuisine_order[cuisine].begin());
+            rating=cuisine_order[cuisine].begin()-> first;
+            food=cuisine_order[cuisine].begin()->second;
+            idx=food2idx[food];
+            live_rating=ratings[idx];
+        }
         return food;
     }
 };
