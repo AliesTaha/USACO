@@ -1,7 +1,7 @@
 class FoodRatings {
 public:
     struct comp{
-        bool operator()(pair<int, string> a, pair<int, string> b) const{
+        bool operator()(const pair<int, string>& a,const pair<int, string>& b) const{
             int arating=a.first;
             int brating=b.first;
             
