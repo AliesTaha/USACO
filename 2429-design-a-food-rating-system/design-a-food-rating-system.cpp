@@ -2,25 +2,11 @@ class FoodRatings {
 public:
     struct comp{
         bool operator()(const pair<int, string>& a,const pair<int, string>& b) const{
-            int arating=a.first;
-            int brating=b.first;
-            
-            string afood=a.second;
-            string bfood=b.second;
-            if (arating<brating){
-                return false;
+            if (a.first!=b.first){
+                return a.first>b.first;
             }
-            if (arating>brating){ //maxheap
-                return true;
-            }
-            int alength=afood.size();
-            int blength=afood.size();
-            for (int i=0; i<min(alength, blength); i++){
-                if ((afood[i]-'a') != (bfood[i]-'a')){
-                    return afood[i]<bfood[i];
-                }
-            }
-            return (alength<blength);
+
+            return a.second<b.second;
         }
     };
     vector<int> ratings;
