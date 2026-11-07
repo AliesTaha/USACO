@@ -17,36 +17,36 @@ public:
 
         sort(order.begin(), order.end(), comp);
 
-        set<int> available_chairs;
+        priority_queue<int, vector<int>, greater<int>> available_chairs; //pq is maxheap
         for (int i=0; i<n; i++){
-            available_chairs.insert(i);
+            available_chairs.push(i);
         }
 
-        set<pair<int, int>> min_heap;
+        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> occupied_chairs; //pq is maxheap
+
 
         for (int i=0; i<n; i++){
             int friendIdx=order[i];
             int a=times[friendIdx][0],b= times[friendIdx][1];
             
             //go through heap & pop all available ones
-            while (min_heap.size()>0){
-                int exp=min_heap.begin()->first;
-                int id=min_heap.begin()->second;
+            while (occupied_chairs.size()>0){
+                int exp=occupied_chairs.top().first;
+                int id=occupied_chairs.top().second;
                 if (exp<=a){ //it expired, pop
-                    min_heap.erase(min_heap.begin());
-                    available_chairs.insert(id);
+                    occupied_chairs.pop();
+                    available_chairs.push(id);
                 }
                 else{
                     break;
                 }
             }
             //go get next available chair
-            auto it=available_chairs.begin();
-            int curr_id=*it;
-            available_chairs.erase(it);
+            int curr_id=available_chairs.top();
+            available_chairs.pop();
 
             //push to minheap
-            min_heap.insert({b, curr_id});
+            occupied_chairs.push({b, curr_id});
             if (friendIdx==targetFriend){
                 return curr_id;
             }
