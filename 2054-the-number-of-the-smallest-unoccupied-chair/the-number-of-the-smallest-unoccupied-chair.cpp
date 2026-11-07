@@ -26,7 +26,7 @@ public:
 
         for (int i=0; i<n; i++){
             int friendIdx=order[i];
-            vector<int> time=times[friendIdx];
+            vector<int>& time=times[friendIdx];
             int a=time[0], b=time[1];
             
             //go through heap & pop all available ones
