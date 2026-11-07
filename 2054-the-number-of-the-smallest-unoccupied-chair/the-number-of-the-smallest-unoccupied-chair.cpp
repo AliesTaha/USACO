@@ -5,7 +5,6 @@ public:
         this->times=times;
         int n=times.size();
         vector<int> order(n);
-        vector<int> chairs(n, 0);
         iota(order.begin(), order.end(), 0);
 
         auto comp= [&times](int& a, int& b){
@@ -20,19 +19,39 @@ public:
 
         sort(order.begin(), order.end(), comp);
 
-        for (int i=0; i<=n; i++){
+        set<int> available_chairs;
+        for (int i=0; i<n; i++){
+            available_chairs.insert(i);
+        }
+
+        set<pair<int, int>> min_heap;
+
+        for (int i=0; i<n; i++){
             int friendIdx=order[i];
             vector<int> time=times[friendIdx];
             int a=time[0], b=time[1];
-            //go through chairs
-            for (int k=0; k<n;k++){
-                if (chairs[k]<=a){
-                    chairs[k]=b;
-                    if (friendIdx==targetFriend){
-                        return k;
-                    }
+            
+            //go through heap & pop all available ones
+            while (min_heap.size()>0){
+                int exp=min_heap.begin()->first;
+                int id=min_heap.begin()->second;
+                if (exp<=a){ //it expired, pop
+                    min_heap.erase(min_heap.begin());
+                    available_chairs.insert(id);
+                }
+                else{
                     break;
                 }
+            }
+            //go get next available chair
+            auto it=available_chairs.begin();
+            int curr_id=*it;
+            available_chairs.erase(it);
+
+            //push to minheap
+            min_heap.insert({b, curr_id});
+            if (friendIdx==targetFriend){
+                return curr_id;
             }
         }
         return -1;
