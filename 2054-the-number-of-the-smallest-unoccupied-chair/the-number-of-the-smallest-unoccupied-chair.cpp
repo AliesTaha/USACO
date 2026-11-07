@@ -1,8 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> times;
     int smallestChair(vector<vector<int>>& times, int targetFriend) {
-        this->times=times;
         int n=times.size();
         vector<int> order(n);
         iota(order.begin(), order.end(), 0);
