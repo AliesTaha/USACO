@@ -4,17 +4,6 @@
 class Solution {
     using Task=array<int, 3>;
     using ll= long long;
-    struct comp_t{
-        bool operator()(const Task& a,const Task& b) const{
-            int a_time=a[0];
-            int b_time=b[0];
-
-            if (a_time>b_time){
-                return true;
-            }
-            return false;
-        }
-    };
 
     struct comp_p{
         bool operator()(const Task& a,const Task& b) const{
@@ -42,29 +31,26 @@ public:
 
         // minheap(task_pairs) sorted by q_time
         // minheap(task_pairs) sorted by end_time
-        pq<Task, vector<Task>, comp_t> t_minheap; 
+        vector<Task> t_min; 
         pq<Task, vector<Task>, comp_p> p_minheap; 
         vector<int> ret;
 
         for (int i=0; i<tasks.size(); i++){
             Task task_pair={tasks[i][0], tasks[i][1], i}; // qtime, proctime
-            t_minheap.push(task_pair);
+            t_min.pb(task_pair);
         }
+        sort(t_min.begin(), t_min.end());
+        int i=0;
 
-        while (t_minheap.size()>0 || p_minheap.size()>0){
+        while (ret.size()<t_min.size()){
             // at current time, what are all available tasks 
-            while (t_minheap.size()>0){
-                Task taskpair=t_minheap.top();
-                if (taskpair[0]<=t){
-                    p_minheap.push(taskpair);
-                    t_minheap.pop();
-                }
-                else{
-                    break;
-                }
+            while (i<t_min.size() && t_min[i][0]<=t){
+                Task task=t_min[i];
+                p_minheap.push(task);
+                i+=1;
             }
-            if (p_minheap.empty() && !t_minheap.empty()) {
-                t = t_minheap.top()[0];
+            if (p_minheap.empty()) {
+                t = t_min[i][0];
                 continue;
             }
             Task curr_task=p_minheap.top();
