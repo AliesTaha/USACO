@@ -1,5 +1,4 @@
 #define pq priority_queue
-#define t_p pair<int, int>
 #define pb push_back
     
 class Solution {
@@ -75,8 +74,6 @@ public:
             qtime=curr_task[0];
             proctime=curr_task[1];
 
-            // cout<<curr_task.first<<endl;
-            // cout<<tp2i[curr_task]<<endl;   
             ret.pb(curr_task[2]); //pb the index of the curr task processed
             t+=proctime; //move time to after having processed this
         }
