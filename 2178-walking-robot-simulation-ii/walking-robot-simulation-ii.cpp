@@ -43,9 +43,6 @@ public:
             dir="South";
         }
         while (i<num){
-            auto d_pos=dir_motion[dir];
-            int dx=d_pos[0];
-            int dy=d_pos[1];
             int x=pos[0], y=pos[1];
             int leftover;
             if (dir=="East"){
