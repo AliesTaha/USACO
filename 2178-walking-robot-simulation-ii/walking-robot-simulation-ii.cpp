@@ -44,7 +44,6 @@ public:
         }
         while (i<num){
             auto d_pos=dir_motion[dir];
-            // vector<int> new_pos={pos[0]+d_pos[0], pos[1]+d_pos[1]};
             int dx=d_pos[0];
             int dy=d_pos[1];
             int x=pos[0], y=pos[1];
@@ -54,28 +53,28 @@ public:
                 if (num<leftover){
                     leftover=num;
                 }
-                x=x+(dx*leftover);
+                x=x+leftover;
             }
             else if (dir=="North"){
                 leftover=(height-1)-y;
                 if (num<leftover){
                     leftover=num;
                 }
-                y=y+(dy*leftover);
+                y=y+leftover;
             }
             else if (dir=="West"){
                 leftover=x;
                 if (num<leftover){
                     leftover=num;
                 }
-                x=x+(dx*leftover);
+                x=x-leftover;
             }
             else{
                 leftover=y;
                 if (num<leftover){
                     leftover=num;
                 }
-                y=y+(dy*leftover);
+                y=y-leftover;
             }
             pos={x,y};
             num-=leftover;
