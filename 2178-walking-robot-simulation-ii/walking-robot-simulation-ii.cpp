@@ -7,10 +7,7 @@ public:
     int perimeter;
 
     map<string, string> bounds_dir={
-        {"East", "North"}, 
-        {"North", "West"}, 
-        {"West", "South"}, 
-        {"South", "East"}, 
+
     };
 
     Robot(int width, int height) {
@@ -40,37 +37,46 @@ public:
             int leftover;
             if (dir=="East"){
                 leftover=(width-1)-x;
-                if (num<leftover){
+                if (num<=leftover){
                     leftover=num;
+                }
+                else{
+                    dir="North";
                 }
                 x=x+leftover;
             }
             else if (dir=="North"){
                 leftover=(height-1)-y;
-                if (num<leftover){
+                if (num<=leftover){
                     leftover=num;
+                }
+                else{
+                    dir="West";  
                 }
                 y=y+leftover;
             }
             else if (dir=="West"){
                 leftover=x;
-                if (num<leftover){
+                if (num<=leftover){
                     leftover=num;
+                }
+                else{
+                    dir="South";
                 }
                 x=x-leftover;
             }
             else{
                 leftover=y;
-                if (num<leftover){
+                if (num<=leftover){
                     leftover=num;
+                }
+                else{
+                    dir="East";
                 }
                 y=y-leftover;
             }
             pos={x,y};
             num-=leftover;
-            if (i<num){
-                dir=bounds_dir[dir];
-            }
         }
     }
     
