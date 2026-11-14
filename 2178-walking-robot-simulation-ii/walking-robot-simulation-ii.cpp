@@ -12,13 +12,6 @@ public:
         {"West", "South"}, 
         {"South", "East"}, 
     };
-    
-    map<string, vector<int>> dir_motion{ //x,y
-        {"North", {0,1}}, 
-        {"South", {0,-1}}, 
-        {"East", {1,0}}, 
-        {"West", {-1,0}}, 
-    } ;
 
     Robot(int width, int height) {
         this->width=width;
