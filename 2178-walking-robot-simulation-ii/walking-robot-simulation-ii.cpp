@@ -6,10 +6,6 @@ public:
     int height;
     int perimeter;
 
-    map<string, string> bounds_dir={
-
-    };
-
     Robot(int width, int height) {
         this->width=width;
         this->height=height;
