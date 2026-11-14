@@ -78,7 +78,6 @@ public:
                 y=y+(dy*leftover);
             }
             pos={x,y};
-            cout<<pos[0]<<pos[1]<<endl;
             num-=leftover;
             if (i<num){
                 dir=bounds_dir[dir];
