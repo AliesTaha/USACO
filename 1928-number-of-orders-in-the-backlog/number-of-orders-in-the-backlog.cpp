@@ -1,28 +1,28 @@
 class Solution {
 public:
     struct minheaper{
-        bool operator()(const vector<int>& a, const vector<int>& b) const{
-            return a[0]>b[0];
+        bool operator()(const pair<int, int>& a, const pair<int, int>& b) const{
+            return a.first>b.first;
         }
     };
 
     struct maxheaper{
-        bool operator()(const vector<int>& a, const vector<int>& b) const{
-            return a[0]<b[0];
+        bool operator()(const pair<int, int>& a, const pair<int, int>& b) const{
+            return a.first<b.first;
         }
     };
 
     int getNumberOfBacklogOrders(vector<vector<int>>& orders) {
 
-        priority_queue<vector<int>, vector<vector<int>>, minheaper> minheap_sell;
-        priority_queue<vector<int>, vector<vector<int>>, maxheaper> maxheap_buy;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, minheaper> minheap_sell;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, maxheaper> maxheap_buy;
 
         for (auto &order: orders){
             int price=order[0],quantity=order[1];
             if (order[2]==0){ //buy
                 while (quantity>0 && minheap_sell.size()>0){
-                    int min_sell=minheap_sell.top()[0];
-                    int min_sell_quantity=minheap_sell.top()[1];
+                    int min_sell=minheap_sell.top().first;
+                    int min_sell_quantity=minheap_sell.top().second;
                     if (min_sell<=price){
                         int dec=min(quantity, min_sell_quantity);
                         quantity-=dec;
@@ -42,8 +42,8 @@ public:
             }
             else{
                 while (quantity>0 && maxheap_buy.size()>0){
-                    int max_buy=maxheap_buy.top()[0];
-                    int max_buy_quantity=maxheap_buy.top()[1];
+                    int max_buy=maxheap_buy.top().first;
+                    int max_buy_quantity=maxheap_buy.top().second;
                     if (max_buy>=price){
                         int dec=min(quantity, max_buy_quantity);
                         quantity-=dec;
@@ -65,11 +65,11 @@ public:
 
         long long total=0;
         while (minheap_sell.size()>0){
-            total+=minheap_sell.top()[1];
+            total+=minheap_sell.top().second;
             minheap_sell.pop();
         }
         while (maxheap_buy.size()>0){
-            total+=maxheap_buy.top()[1];
+            total+=maxheap_buy.top().second;
             maxheap_buy.pop();
         }
         return int(total%1'000'000'007);
